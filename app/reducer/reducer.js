@@ -4,13 +4,16 @@ export const initialState = {
   
   export const cartReducer = (state, action) => {
     switch (action.type) {
+
+      
       case 'ADD_ITEM_TO_CART':
-        const isItemPresent =  state?.cartItems?.find(item  => item?.id === action?.payload?.id)
+        
+      const isItemPresent =  state?.cartItems?.find(item  => item?.id === action?.payload?.id)
         if (isItemPresent) {
             return {
                 ...state,
                 cartItems: state?.cartItems?.map((x) =>
-                  x._id === isItemPresent?._id ? action.payload : x
+                  x.id === isItemPresent?.id ? action.payload : x
                 ),
               };
           }else{
@@ -21,7 +24,7 @@ export const initialState = {
                 return {
                 ...state,
                 cartItems: state?.cartItems?.map((x) =>
-                    x._id === action.payload?._id ? { ...x, quantity: x.quantity + 1 } : x
+                    x.id === action.payload?.id ? { ...x, quantity: x.quantity + 1 } : x
                 ),
                 };
         
@@ -29,7 +32,7 @@ export const initialState = {
                 return {
                 ...state,
                 cartItems: state?.cartItems?.map((x) =>
-                    x._id === action.payload?._id ? { ...x, quantity: x.quantity - 1 } : x
+                    x.id === action.payload?.id ? { ...x, quantity: x.quantity - 1 } : x
                 ).filter((x) => x.quantity > 0), 
                 };      
        default:
